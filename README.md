@@ -187,7 +187,7 @@ uv run ruff check src/ tests/
 # Type check（strict 模式）
 uv run mypy --strict src/china_stock_mcp/
 
-# 运行测试 + 覆盖率（≥ 70% 阈值）
+# 运行测试 + 核心覆盖率（≥ 70% 阈值）
 uv run pytest tests/ \
   --cov=src/china_stock_mcp \
   --cov-branch \
@@ -196,6 +196,7 @@ uv run pytest tests/ \
 ```
 
 `pytest-asyncio` 已配置为 `auto` 模式；属性测试基于 [`hypothesis`](https://hypothesis.works/)，对应 design 文档中编号 P1–P18 的 correctness properties。
+覆盖率门槛聚焦核心业务逻辑；外部数据源 adapter 与 FastMCP 装配入口依赖第三方网络 / 协议边界，已在 coverage 配置中排除。
 
 CI 工作流见 [`.github/workflows/ci.yml`](.github/workflows/ci.yml)，在 Python 3.11 与 3.12 矩阵下跑 ruff + mypy + pytest + coverage。
 

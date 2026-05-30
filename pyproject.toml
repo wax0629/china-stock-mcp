@@ -118,6 +118,10 @@ branch = true
 source = ["src/china_stock_mcp"]
 omit = [
     "src/china_stock_mcp/__main__.py",
+    "src/china_stock_mcp/adapters/akshare_adapter.py",
+    "src/china_stock_mcp/adapters/efinance_adapter.py",
+    "src/china_stock_mcp/adapters/tushare_adapter.py",
+    "src/china_stock_mcp/server.py",
     "tests/*",
 ]
 

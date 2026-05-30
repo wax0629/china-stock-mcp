@@ -39,7 +39,7 @@ jobs:
       - name: Type check (mypy --strict)
         run: uv run mypy --strict src/china_stock_mcp/
 
-      - name: Tests with coverage (≥ 70% threshold)
+      - name: Tests with core coverage (≥ 70% threshold)
         run: >-
           uv run pytest tests/
           --cov=src/china_stock_mcp

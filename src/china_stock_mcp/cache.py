@@ -30,7 +30,7 @@ import json
 import threading
 from collections.abc import Callable, Mapping
 from pathlib import Path
-from typing import Any, Final, Protocol, TypeVar, runtime_checkable
+from typing import Any, Final, Protocol, TypeVar, cast, runtime_checkable
 
 from china_stock_mcp.config import Settings, load_settings
 
@@ -252,7 +252,7 @@ class RedisCache(_BaseCache):
     def get(self, key: str) -> Any | None:
         import pickle
 
-        raw = self._client.get(key)
+        raw = cast(bytes | None, self._client.get(key))
         if raw is None:
             return None
         return pickle.loads(raw)

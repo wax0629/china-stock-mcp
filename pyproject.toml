@@ -1,11 +1,11 @@
 [project]
-name = "china-stock-mcp"
+name = "china-a-stock-mcp"
 version = "0.1.0"
 description = "Model Context Protocol server for Chinese stock market research (A 股 / 港股 / 公募基金)"
 readme = "README.md"
 license = { text = "MIT" }
 requires-python = ">=3.11"
-authors = [{ name = "china-stock-mcp authors" }]
+authors = [{ name = "wax0629" }]
 keywords = ["mcp", "china", "stock", "akshare", "fastmcp"]
 classifiers = [
     "Development Status :: 3 - Alpha",
@@ -39,7 +39,7 @@ all = [
 ]
 
 [project.scripts]
-china-stock-mcp = "china_stock_mcp.server:main"
+china-a-stock-mcp = "china_stock_mcp.server:main"
 
 [project.urls]
 Homepage = "https://github.com/wax0629/china-stock-mcp"

@@ -400,7 +400,7 @@ wheels = [
 ]
 
 [[package]]
-name = "china-stock-mcp"
+name = "china-a-stock-mcp"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [

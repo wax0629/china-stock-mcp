@@ -64,14 +64,14 @@
 ### 方式一：uvx 一键运行（推荐）
 
 ```bash
-uvx china-stock-mcp
+uvx china-a-stock-mcp
 ```
 
 ### 方式二：从 PyPI 安装
 
 ```bash
-pip install "china-stock-mcp[all]"
-china-stock-mcp
+pip install "china-a-stock-mcp[all]"
+china-a-stock-mcp
 ```
 
 可选 extras：
@@ -87,7 +87,7 @@ china-stock-mcp
 git clone https://github.com/wax0629/china-stock-mcp
 cd china-stock-mcp
 uv sync --all-extras --group dev
-uv run china-stock-mcp
+uv run china-a-stock-mcp
 ```
 
 ---
@@ -119,7 +119,7 @@ uv run china-stock-mcp
   "mcpServers": {
     "china-stock": {
       "command": "uvx",
-      "args": ["china-stock-mcp"],
+      "args": ["china-a-stock-mcp"],
       "env": {
         "CSM_CACHE_DIR": "${HOME}/.cache/china-stock-mcp",
         "CSM_LOG_LEVEL": "INFO"
@@ -136,7 +136,7 @@ uv run china-stock-mcp
   "mcpServers": {
     "china-stock": {
       "command": "uvx",
-      "args": ["china-stock-mcp[tushare]"],
+      "args": ["china-a-stock-mcp[tushare]"],
       "env": {
         "CSM_TUSHARE_TOKEN": "your_tushare_token_here",
         "CSM_CACHE_DIR": "${HOME}/.cache/china-stock-mcp"
@@ -159,7 +159,7 @@ Cursor 与 Cline 均支持 MCP，在其 MCP 配置面板加入相同结构：
   "mcpServers": {
     "china-stock": {
       "command": "uvx",
-      "args": ["china-stock-mcp"]
+      "args": ["china-a-stock-mcp"]
     }
   }
 }
@@ -168,7 +168,7 @@ Cursor 与 Cline 均支持 MCP，在其 MCP 配置面板加入相同结构：
 ## Streamable HTTP（远程部署）
 
 ```bash
-CSM_TRANSPORT=streamable-http china-stock-mcp
+CSM_TRANSPORT=streamable-http china-a-stock-mcp
 ```
 
 客户端按其文档接入 streamable-http 端点。
@@ -232,3 +232,4 @@ src/china_stock_mcp/
 ## Disclaimer
 
 > ⚠️ 数据来源于公开第三方，可能存在延迟或误差。本服务仅供研究学习使用，不构成任何投资建议。
+

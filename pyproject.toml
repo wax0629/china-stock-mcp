@@ -1,0 +1,132 @@
+[project]
+name = "china-stock-mcp"
+version = "0.1.0"
+description = "Model Context Protocol server for Chinese stock market research (A 股 / 港股 / 公募基金)"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.11"
+authors = [{ name = "china-stock-mcp authors" }]
+keywords = ["mcp", "china", "stock", "akshare", "fastmcp"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Office/Business :: Financial :: Investment",
+]
+
+dependencies = [
+    "fastmcp>=0.2.0",
+    "pydantic>=2.6",
+    "akshare>=1.12.0",
+    "diskcache>=5.6",
+    "httpx>=0.27",
+    "pandas>=2.2",
+    "numpy>=1.26",
+    "loguru>=0.7",
+]
+
+[project.optional-dependencies]
+tushare = ["tushare>=1.4"]
+efinance = ["efinance>=0.4"]
+redis = ["redis>=5.0"]
+all = [
+    "tushare>=1.4",
+    "efinance>=0.4",
+    "redis>=5.0",
+]
+
+[project.scripts]
+china-stock-mcp = "china_stock_mcp.server:main"
+
+[project.urls]
+Homepage = "https://github.com/wax0629/china-stock-mcp"
+Issues = "https://github.com/wax0629/china-stock-mcp/issues"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0",
+    "pytest-asyncio>=0.23",
+    "pytest-cov>=5.0",
+    "hypothesis>=6.100",
+    "ruff>=0.5",
+    "mypy>=1.10",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/china_stock_mcp"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+src = ["src", "tests"]
+extend-exclude = [
+    ".venv",
+    ".mypy_cache",
+    ".ruff_cache",
+    ".pytest_cache",
+    ".hypothesis",
+]
+
+[tool.ruff.lint]
+select = [
+    "E", "F", "W",   # pycodestyle / pyflakes
+    "I",             # isort
+    "B",             # bugbear
+    "UP",            # pyupgrade
+    "SIM",           # simplify
+    "RUF",           # ruff-specific
+]
+ignore = ["E501"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**/*.py" = ["B", "SIM"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["china_stock_mcp"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+warn_return_any = true
+warn_unused_ignores = true
+disallow_untyped_defs = true
+ignore_missing_imports = true
+plugins = ["pydantic.mypy"]
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+addopts = "-ra -q"
+testpaths = ["tests"]
+asyncio_mode = "auto"
+filterwarnings = [
+    "ignore::DeprecationWarning",
+]
+markers = [
+    "integration: marks tests that exercise multiple layers end-to-end",
+    "slow: marks tests that may take more than a second",
+]
+
+[tool.coverage.run]
+branch = true
+source = ["src/china_stock_mcp"]
+omit = [
+    "src/china_stock_mcp/__main__.py",
+    "tests/*",
+]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true
+fail_under = 70
+exclude_also = [
+    "raise NotImplementedError",
+    "if TYPE_CHECKING:",
+    "if __name__ == .__main__.:",
+]

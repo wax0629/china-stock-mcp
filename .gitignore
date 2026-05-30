@@ -1,0 +1,50 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# uv / virtualenv
+.venv/
+.python-version-local
+
+# Test / coverage
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.hypothesis/
+
+# Ruff / mypy
+.ruff_cache/
+.mypy_cache/
+
+# IDE
+.vscode/
+.idea/
+.kiro/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project caches
+.cache/
+*.log

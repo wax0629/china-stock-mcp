@@ -1,0 +1,58 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: lint + mypy + pytest (Python ${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12"]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          enable-cache: true
+          cache-dependency-glob: "pyproject.toml"
+
+      - name: Set up Python ${{ matrix.python-version }}
+        run: uv python install ${{ matrix.python-version }}
+
+      - name: Install project (runtime + optional + dev)
+        run: uv sync --all-extras --group dev
+
+      - name: Lint (ruff)
+        run: uv run ruff check src/ tests/
+
+      - name: Type check (mypy --strict)
+        run: uv run mypy --strict src/china_stock_mcp/
+
+      - name: Tests with coverage (≥ 70% threshold)
+        run: >-
+          uv run pytest tests/
+          --cov=src/china_stock_mcp
+          --cov-branch
+          --cov-report=term-missing
+          --cov-report=xml
+          --cov-fail-under=70
+
+      - name: Upload coverage artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-${{ matrix.python-version }}
+          path: coverage.xml
+          if-no-files-found: ignore
